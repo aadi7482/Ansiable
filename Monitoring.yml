@@ -1,0 +1,25 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Install and configure Prometheus
+      apt:
+        name: prometheus
+        state: present
+
+    - name: Send a Slack message
+      slack:
+        token: "{{ slack_token}}"
+        channel: '#alerts'
+        msg: 'An error occured in the system!'
+
+    - name: Ensure password expirtion policy is set
+      lineinfile:
+        path: /etc/login.defs
+        regexp: '^PASS_MAX_DAYS'
+        line: 'PASS_MAX_DAYS 90'
+
+    - name: Add SSH key for user
+      authorized_key:
+        user: aaditya
+        state: present
+        key: "{{ lookup('file', '/opt/aaditya/key.pub')}}"
