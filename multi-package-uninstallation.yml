@@ -1,0 +1,12 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: uninstall multi packages
+      apt:
+        name:
+          - apache2
+          - ntpdate
+          - nmap
+        state: absent
+        purge: yes
+        autoremove: yes
