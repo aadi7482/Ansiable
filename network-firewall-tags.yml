@@ -1,0 +1,22 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Configure static IP address
+      tags: Network
+      net_plan:
+        name: eth0
+        ipv4:
+          address: 192.168.1.10
+          netmask: 255.255.255.0
+          gateway: 192.168.1.1
+
+      - name: Firewall managment
+        tags: Firewall
+        ufw:
+        rule: allow
+        name: 'NGINX HTTP'
+        state: enabled
+        
+        
+
+      
