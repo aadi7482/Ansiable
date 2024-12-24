@@ -1,0 +1,22 @@
+- hosts: all
+  become: true
+  vars:
+    folderpath: /opt/aaditya/test
+    filepath: /opt/aaditya/test/test.txt
+
+
+  tasks:
+    - name: Create a folder
+      tags: Createfolder
+      file:
+        path: "{{ foderpath}}"
+        state: directory
+        mode: '0755'
+
+    - name: Create a file
+      tags: Createfile
+      file:
+        path: ""{{ filepath}}
+        state: file
+        mode: '0655'
+  
