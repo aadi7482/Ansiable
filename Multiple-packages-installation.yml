@@ -1,0 +1,10 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: installatin multi packages
+      apt:
+        name:
+          - apache2
+          - ntpdate
+          - nmap
+        state: present
