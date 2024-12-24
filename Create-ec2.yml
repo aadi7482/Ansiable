@@ -1,0 +1,25 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Lunch an EC2 instance
+      ec2:
+         key_name: my-key
+         region: us-east-1
+         instance_type: t2.micro
+         image: ami-0a887e401f7654935
+         count: 1
+         wait: yes
+         group: my-security-group
+
+      - name: Create an S3 bucket
+        s3_bucket:
+          name: my-bucket
+          state: present
+          region: us-west-2
+
+      - name: Gernrate nginx config
+        templete:
+          src: nginx.cnf.j2
+          dest: /etc/nginx/nginx.conf
+          
+    
