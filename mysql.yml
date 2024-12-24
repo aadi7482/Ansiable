@@ -1,0 +1,19 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Install MYSQL
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Add a custom repository
+      apt_repository:
+        repo: 'deb http://repo.example.com/ubuntu focal main'
+        state: present
+
+    - name: Deploying code from Git repository
+      git:
+        repo: 'https://github.com/example/repo.git'
+        dest: /var/www/html
+        version: master
+        
