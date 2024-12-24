@@ -1,0 +1,25 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: create a folder
+      file:
+        path: /opt/aaditya
+        state: directory
+        mode: '0755'
+    - name: create a file
+      file:
+        path: /opt/aaditya/index.html
+        state: touch
+
+    - name: create a user
+      user:
+        name: aaditya
+        state: present
+        create_home: yes
+        shell: /bin/bash
+
+    - name: change file permission
+      file:
+        path: /opt/aaditya/index.html
+        mode: '0655'
+  
