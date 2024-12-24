@@ -16,4 +16,15 @@
         repo: 'https://github.com/example/repo.git'
         dest: /var/www/html
         version: master
+
+    - name: Run a shell script
+      command: /path/to/script.sh
+
+  - name: Create a cron job to run a script everyday at midnight
+    cron:
+      name: "Run backup"
+      minute: '0'
+      hour: '0'
+      job: "/path/to/backup.sh"
+      
         
