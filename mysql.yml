@@ -26,5 +26,17 @@
       minute: '0'
       hour: '0'
       job: "/path/to/backup.sh"
+
+  - name: Backup MYSQL database
+    mysql_db:
+      name: aaditechnology
+      state: dump
+      target: /backup/aaditechnology.sql
+
+  - name: Restore MYSQL database
+    mysql_db:
+      name: aaditech
+      state: import
+      target: /backup/aaditechnology.sql
       
         
