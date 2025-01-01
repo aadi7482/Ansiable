@@ -1,0 +1,29 @@
+---
+- name: Install and Configure Elasticsearch
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Elasticsearch
+      apt:
+        name: "elasticsearch"
+        state: present
+        update_cache: yes
+
+    - name: Start and enable Elasticsearch service
+      service:
+        name: elasticsearch
+        state: started
+        enabled: yes
+
+    - name: Configure Elasticsearch to listen on 0.0.0.0
+      lineinfile:
+        path: /etc/elasticsearch/elasticsearch.yml
+        regexp: '^#network.host: 192.168.0.1'
+        line: 'network.host: 0.0.0.0'
+      notify: restart elasticsearch
+
+  handlers:
+    - name: restart elasticsearch
+      service:
+        name: elasticsearch
+        state: restarted
